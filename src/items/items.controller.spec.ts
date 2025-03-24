@@ -13,7 +13,7 @@ describe('ItemsController', () => {
     name: 'Test Item',
     description: 'Test Description',
     price: 100,
-    quantity: 10
+    quantity: 10,
   }
 
   const mockItemsService = {
@@ -21,7 +21,7 @@ describe('ItemsController', () => {
     findAll: jest.fn().mockResolvedValue([mockItem]),
     findOne: jest.fn().mockResolvedValue(mockItem),
     update: jest.fn().mockResolvedValue(mockItem),
-    remove: jest.fn().mockResolvedValue(mockItem)
+    remove: jest.fn().mockResolvedValue(mockItem),
   }
 
   beforeEach(async () => {
@@ -30,9 +30,9 @@ describe('ItemsController', () => {
       providers: [
         {
           provide: ItemsService,
-          useValue: mockItemsService
-        }
-      ]
+          useValue: mockItemsService,
+        },
+      ],
     }).compile()
 
     controller = module.get<ItemsController>(ItemsController)
@@ -49,7 +49,7 @@ describe('ItemsController', () => {
         name: 'Test Item',
         description: 'Test Description',
         price: 100,
-        quantity: 10
+        quantity: 10,
       }
 
       expect(await controller.create(createItemDto)).toBe(mockItem)
@@ -79,7 +79,7 @@ describe('ItemsController', () => {
         price: 150,
         quantity: 20,
         name: '',
-        description: ''
+        description: '',
       }
 
       expect(await controller.update(id, updateItemDto)).toBe(mockItem)

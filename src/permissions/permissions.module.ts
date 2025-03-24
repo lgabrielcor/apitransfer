@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common';
-import { PermissionsService } from './permissions.service';
-import { PermissionsController } from './permissions.controller';
-import { MongooseModule } from '@nestjs/mongoose';
-import { Permission, PermissionSchema } from './entities/permission.entity';
+import { Module } from '@nestjs/common'
+import { PermissionsService } from './permissions.service'
+import { PermissionsController } from './permissions.controller'
+import { MongooseModule } from '@nestjs/mongoose'
+import { Permission, PermissionSchema } from './entities/permission.entity'
 
 @Module({
   imports: [
@@ -14,4 +14,4 @@ import { Permission, PermissionSchema } from './entities/permission.entity';
   providers: [PermissionsService],
   exports: [PermissionsService],
 })
-export class PermissionsModule { }
+export class PermissionsModule {}

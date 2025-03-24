@@ -7,7 +7,7 @@ import { UpdateUserDto } from './dto/update-user.dto'
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) { }
+  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     return this.userModel.create(createUserDto)
@@ -45,10 +45,13 @@ export class UsersService {
   }
 
   async findByEmail(email: string): Promise<User> {
-    const user = await this.userModel.findOne({ email }).populate('roles').exec();
+    const user = await this.userModel
+      .findOne({ email })
+      .populate('roles')
+      .exec()
     if (!user) {
-      throw new NotFoundException(`User with email ${email} not found`);
+      throw new NotFoundException(`User with email ${email} not found`)
     }
-    return user;
+    return user
   }
 }

@@ -13,7 +13,7 @@ describe('PermissionsController', () => {
     name: 'read:users',
     description: 'Can read users',
     resource: 'users',
-    action: 'read'
+    action: 'read',
   }
 
   const mockPermissionsService = {
@@ -21,7 +21,7 @@ describe('PermissionsController', () => {
     findAll: jest.fn().mockResolvedValue([mockPermission]),
     findOne: jest.fn().mockResolvedValue(mockPermission),
     update: jest.fn().mockResolvedValue(mockPermission),
-    remove: jest.fn().mockResolvedValue(mockPermission)
+    remove: jest.fn().mockResolvedValue(mockPermission),
   }
 
   beforeEach(async () => {
@@ -30,9 +30,9 @@ describe('PermissionsController', () => {
       providers: [
         {
           provide: PermissionsService,
-          useValue: mockPermissionsService
-        }
-      ]
+          useValue: mockPermissionsService,
+        },
+      ],
     }).compile()
 
     controller = module.get<PermissionsController>(PermissionsController)
@@ -49,7 +49,7 @@ describe('PermissionsController', () => {
         name: 'read:users',
         description: 'Can read users',
         resource: 'users',
-        action: 'read'
+        action: 'read',
       }
 
       expect(await controller.create(createPermissionDto)).toBe(mockPermission)
@@ -77,10 +77,12 @@ describe('PermissionsController', () => {
       const id = '65ff12345678901234567890'
       const updatePermissionDto: UpdatePermissionDto = {
         name: 'write:users',
-        description: 'Can write users'
+        description: 'Can write users',
       }
 
-      expect(await controller.update(id, updatePermissionDto)).toBe(mockPermission)
+      expect(await controller.update(id, updatePermissionDto)).toBe(
+        mockPermission,
+      )
       expect(service.update).toHaveBeenCalledWith(id, updatePermissionDto)
     })
   })

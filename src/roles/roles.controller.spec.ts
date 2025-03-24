@@ -12,7 +12,7 @@ describe('RolesController', () => {
     _id: '65ff12345678901234567890',
     name: 'admin',
     description: 'Administrator role',
-    permissions: ['read', 'write']
+    permissions: ['read', 'write'],
   }
 
   const mockRolesService = {
@@ -20,7 +20,7 @@ describe('RolesController', () => {
     findAll: jest.fn().mockResolvedValue([mockRole]),
     findOne: jest.fn().mockResolvedValue(mockRole),
     update: jest.fn().mockResolvedValue(mockRole),
-    remove: jest.fn().mockResolvedValue(mockRole)
+    remove: jest.fn().mockResolvedValue(mockRole),
   }
 
   beforeEach(async () => {
@@ -29,9 +29,9 @@ describe('RolesController', () => {
       providers: [
         {
           provide: RolesService,
-          useValue: mockRolesService
-        }
-      ]
+          useValue: mockRolesService,
+        },
+      ],
     }).compile()
 
     controller = module.get<RolesController>(RolesController)
@@ -47,7 +47,7 @@ describe('RolesController', () => {
       const createRoleDto: CreateRoleDto = {
         name: 'admin',
         description: 'Administrator role',
-        permissions: ['read', 'write']
+        permissions: ['read', 'write'],
       }
 
       expect(await controller.create(createRoleDto)).toBe(mockRole)
@@ -75,7 +75,7 @@ describe('RolesController', () => {
       const id = '65ff12345678901234567890'
       const updateRoleDto: UpdateRoleDto = {
         name: 'updated-admin',
-        description: 'Updated administrator role'
+        description: 'Updated administrator role',
       }
 
       expect(await controller.update(id, updateRoleDto)).toBe(mockRole)

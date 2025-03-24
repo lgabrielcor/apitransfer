@@ -33,7 +33,6 @@ export default tseslint.config(
       'semi': ['error', 'never'],
       '@typescript-eslint/semi': ['error', 'never'],
       'prettier/prettier': ['error', {
-        'semi': false,
         'endOfLine': 'auto'
       }]
     },

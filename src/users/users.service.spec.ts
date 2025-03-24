@@ -16,26 +16,26 @@ describe('UsersService', () => {
     username: 'testuser',
     email: 'test@example.com',
     password: 'hashedPassword',
-    roles: ['user']
+    roles: ['user'],
   }
 
   const mockUserModel = {
     create: jest.fn().mockResolvedValue(mockUser),
     find: jest.fn().mockReturnValue({
       populate: jest.fn().mockReturnThis(),
-      exec: jest.fn().mockResolvedValue([mockUser])
+      exec: jest.fn().mockResolvedValue([mockUser]),
     }),
     findById: jest.fn().mockReturnValue({
       populate: jest.fn().mockReturnThis(),
-      exec: jest.fn().mockResolvedValue(mockUser)
+      exec: jest.fn().mockResolvedValue(mockUser),
     }),
     findByIdAndUpdate: jest.fn().mockReturnValue({
       populate: jest.fn().mockReturnThis(),
-      exec: jest.fn().mockResolvedValue(mockUser)
+      exec: jest.fn().mockResolvedValue(mockUser),
     }),
     findByIdAndDelete: jest.fn().mockReturnValue({
-      exec: jest.fn().mockResolvedValue(mockUser)
-    })
+      exec: jest.fn().mockResolvedValue(mockUser),
+    }),
   }
 
   beforeEach(async () => {
@@ -44,9 +44,9 @@ describe('UsersService', () => {
         UsersService,
         {
           provide: getModelToken(User.name),
-          useValue: mockUserModel
-        }
-      ]
+          useValue: mockUserModel,
+        },
+      ],
     }).compile()
 
     service = module.get<UsersService>(UsersService)
@@ -63,7 +63,7 @@ describe('UsersService', () => {
         username: 'testuser',
         email: 'test@example.com',
         password: 'password123',
-        roles: ['user']
+        roles: ['user'],
       }
 
       expect(await service.create(createUserDto)).toEqual(mockUser)
@@ -89,11 +89,11 @@ describe('UsersService', () => {
       const id = '65ff12345678901234567890'
       jest.spyOn(model, 'findById').mockReturnValueOnce({
         populate: jest.fn().mockReturnThis(),
-        exec: jest.fn().mockResolvedValueOnce(null)
+        exec: jest.fn().mockResolvedValueOnce(null),
       } as any)
 
       await expect(service.findOne(id)).rejects.toThrow(
-        new NotFoundException(`User with id ${id} not found`)
+        new NotFoundException(`User with id ${id} not found`),
       )
     })
   })
@@ -102,30 +102,28 @@ describe('UsersService', () => {
     it('should update a user', async () => {
       const id = '65ff12345678901234567890'
       const updateUserDto: UpdateUserDto = {
-        email: 'updated@example.com'
+        email: 'updated@example.com',
       }
 
       expect(await service.update(id, updateUserDto)).toEqual(mockUser)
-      expect(model.findByIdAndUpdate).toHaveBeenCalledWith(
-        id,
-        updateUserDto,
-        { new: true }
-      )
+      expect(model.findByIdAndUpdate).toHaveBeenCalledWith(id, updateUserDto, {
+        new: true,
+      })
     })
 
     it('should throw an error if user to update is not found', async () => {
       const id = '65ff12345678901234567890'
       const updateUserDto: UpdateUserDto = {
-        email: 'updated@example.com'
+        email: 'updated@example.com',
       }
 
       jest.spyOn(model, 'findByIdAndUpdate').mockReturnValueOnce({
         populate: jest.fn().mockReturnThis(),
-        exec: jest.fn().mockResolvedValueOnce(null)
+        exec: jest.fn().mockResolvedValueOnce(null),
       } as any)
 
       await expect(service.update(id, updateUserDto)).rejects.toThrow(
-        new NotFoundException(`User with id ${id} not found`)
+        new NotFoundException(`User with id ${id} not found`),
       )
     })
   })
@@ -140,11 +138,11 @@ describe('UsersService', () => {
     it('should throw an error if user to remove is not found', async () => {
       const id = '65ff12345678901234567890'
       jest.spyOn(model, 'findByIdAndDelete').mockReturnValueOnce({
-        exec: jest.fn().mockResolvedValueOnce(null)
+        exec: jest.fn().mockResolvedValueOnce(null),
       } as any)
 
       await expect(service.remove(id)).rejects.toThrow(
-        new NotFoundException(`User with id ${id} not found`)
+        new NotFoundException(`User with id ${id} not found`),
       )
     })
   })

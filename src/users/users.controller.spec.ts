@@ -13,7 +13,7 @@ describe('UsersController', () => {
     username: 'testuser',
     email: 'test@example.com',
     password: 'hashedPassword',
-    roles: ['user']
+    roles: ['user'],
   }
 
   const mockUsersService = {
@@ -21,7 +21,7 @@ describe('UsersController', () => {
     findAll: jest.fn().mockResolvedValue([mockUser]),
     findOne: jest.fn().mockResolvedValue(mockUser),
     update: jest.fn().mockResolvedValue(mockUser),
-    remove: jest.fn().mockResolvedValue(mockUser)
+    remove: jest.fn().mockResolvedValue(mockUser),
   }
 
   beforeEach(async () => {
@@ -30,9 +30,9 @@ describe('UsersController', () => {
       providers: [
         {
           provide: UsersService,
-          useValue: mockUsersService
-        }
-      ]
+          useValue: mockUsersService,
+        },
+      ],
     }).compile()
 
     controller = module.get<UsersController>(UsersController)
@@ -49,7 +49,7 @@ describe('UsersController', () => {
         username: 'testuser',
         email: 'test@example.com',
         password: 'password123',
-        roles: ['user']
+        roles: ['user'],
       }
 
       expect(await controller.create(createUserDto)).toBe(mockUser)
@@ -76,7 +76,7 @@ describe('UsersController', () => {
     it('should update a user', async () => {
       const id = '65ff12345678901234567890'
       const updateUserDto: UpdateUserDto = {
-        email: 'updated@example.com'
+        email: 'updated@example.com',
       }
 
       expect(await controller.update(id, updateUserDto)).toBe(mockUser)

@@ -1,9 +1,9 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger'
 
 export class ResetPasswordDto {
-    @ApiProperty()
-    token: string;
+  @ApiProperty()
+  token: string
 
-    @ApiProperty()
-    newPassword: string;
+  @ApiProperty()
+  newPassword: string
 }

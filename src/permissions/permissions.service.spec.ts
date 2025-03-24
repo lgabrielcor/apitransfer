@@ -15,23 +15,23 @@ describe('PermissionsService', () => {
     name: 'read:users',
     description: 'Can read users',
     resource: 'users',
-    action: 'read'
+    action: 'read',
   }
 
   const mockPermissionModel = {
     create: jest.fn().mockResolvedValue(mockPermission),
     find: jest.fn().mockReturnValue({
-      exec: jest.fn().mockResolvedValue([mockPermission])
+      exec: jest.fn().mockResolvedValue([mockPermission]),
     }),
     findById: jest.fn().mockReturnValue({
-      exec: jest.fn().mockResolvedValue(mockPermission)
+      exec: jest.fn().mockResolvedValue(mockPermission),
     }),
     findByIdAndUpdate: jest.fn().mockReturnValue({
-      exec: jest.fn().mockResolvedValue(mockPermission)
+      exec: jest.fn().mockResolvedValue(mockPermission),
     }),
     findByIdAndDelete: jest.fn().mockReturnValue({
-      exec: jest.fn().mockResolvedValue(mockPermission)
-    })
+      exec: jest.fn().mockResolvedValue(mockPermission),
+    }),
   }
 
   beforeEach(async () => {
@@ -40,9 +40,9 @@ describe('PermissionsService', () => {
         PermissionsService,
         {
           provide: getModelToken(Permission.name),
-          useValue: mockPermissionModel
-        }
-      ]
+          useValue: mockPermissionModel,
+        },
+      ],
     }).compile()
 
     service = module.get<PermissionsService>(PermissionsService)
@@ -59,7 +59,7 @@ describe('PermissionsService', () => {
         name: 'read:users',
         description: 'Can read users',
         resource: 'users',
-        action: 'read'
+        action: 'read',
       }
 
       const result = await service.create(createPermissionDto)
@@ -72,11 +72,15 @@ describe('PermissionsService', () => {
         name: 'read:users',
         description: 'Can read users',
         resource: 'users',
-        action: 'read'
+        action: 'read',
       }
 
-      jest.spyOn(model, 'create').mockRejectedValueOnce(new Error('Creation failed'))
-      await expect(service.create(createPermissionDto)).rejects.toThrow('Creation failed')
+      jest
+        .spyOn(model, 'create')
+        .mockRejectedValueOnce(new Error('Creation failed'))
+      await expect(service.create(createPermissionDto)).rejects.toThrow(
+        'Creation failed',
+      )
     })
   })
 
@@ -89,7 +93,7 @@ describe('PermissionsService', () => {
 
     it('should return an empty array if no permissions exist', async () => {
       jest.spyOn(model, 'find').mockReturnValueOnce({
-        exec: jest.fn().mockResolvedValueOnce([])
+        exec: jest.fn().mockResolvedValueOnce([]),
       } as any)
       const result = await service.findAll()
       expect(result).toEqual([])
@@ -107,9 +111,11 @@ describe('PermissionsService', () => {
     it('should throw an error if permission is not found', async () => {
       const id = '65ff12345678901234567890'
       jest.spyOn(model, 'findById').mockReturnValueOnce({
-        exec: jest.fn().mockResolvedValueOnce(null)
+        exec: jest.fn().mockResolvedValueOnce(null),
       } as any)
-      await expect(service.findOne(id)).rejects.toThrow(`Permission with id ${id} not found`)
+      await expect(service.findOne(id)).rejects.toThrow(
+        `Permission with id ${id} not found`,
+      )
     })
   })
 
@@ -118,7 +124,7 @@ describe('PermissionsService', () => {
       const id = '65ff12345678901234567890'
       const updatePermissionDto: UpdatePermissionDto = {
         name: 'write:users',
-        description: 'Can write users'
+        description: 'Can write users',
       }
 
       const result = await service.update(id, updatePermissionDto)
@@ -126,21 +132,21 @@ describe('PermissionsService', () => {
       expect(model.findByIdAndUpdate).toHaveBeenCalledWith(
         id,
         updatePermissionDto,
-        { new: true }
+        { new: true },
       )
     })
 
     it('should throw an error if permission to update is not found', async () => {
       const id = '65ff12345678901234567890'
       const updatePermissionDto: UpdatePermissionDto = {
-        name: 'write:users'
+        name: 'write:users',
       }
 
       jest.spyOn(model, 'findByIdAndUpdate').mockReturnValueOnce({
-        exec: jest.fn().mockResolvedValueOnce(null)
+        exec: jest.fn().mockResolvedValueOnce(null),
       } as any)
       await expect(service.update(id, updatePermissionDto)).rejects.toThrow(
-        `Permission with id ${id} not found`
+        `Permission with id ${id} not found`,
       )
     })
   })
@@ -156,9 +162,11 @@ describe('PermissionsService', () => {
     it('should throw an error if permission to remove is not found', async () => {
       const id = '65ff12345678901234567890'
       jest.spyOn(model, 'findByIdAndDelete').mockReturnValueOnce({
-        exec: jest.fn().mockResolvedValueOnce(null)
+        exec: jest.fn().mockResolvedValueOnce(null),
       } as any)
-      await expect(service.remove(id)).rejects.toThrow(`Permission with id ${id} not found`)
+      await expect(service.remove(id)).rejects.toThrow(
+        `Permission with id ${id} not found`,
+      )
     })
   })
 })

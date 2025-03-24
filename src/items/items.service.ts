@@ -7,7 +7,7 @@ import { Item } from './entities/item.entity'
 
 @Injectable()
 export class ItemsService {
-  constructor(@InjectModel(Item.name) private itemModel: Model<Item>) { }
+  constructor(@InjectModel(Item.name) private itemModel: Model<Item>) {}
 
   async create(createItemDto: CreateItemDto): Promise<Item> {
     return this.itemModel.create(createItemDto)
