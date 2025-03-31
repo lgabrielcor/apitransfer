@@ -1,8 +1,18 @@
+import 'reflect-metadata'
 import { Test, TestingModule } from '@nestjs/testing'
 import { ItemsController } from './items.controller'
 import { ItemsService } from './items.service'
-import { CreateItemDto } from './dto/create-item.dto'
 import { UpdateItemDto } from './dto/update-item.dto'
+import { CreateItemDto } from './dto/create-item.dto'
+
+// Mock the security decorators
+jest.mock('../security/custom-decorator', () => ({
+  AuthGuard: jest.fn().mockImplementation(() => ({
+    canActivate: jest.fn().mockReturnValue(true)
+  })),
+  Roles: jest.fn().mockReturnValue(() => true),
+  Permissions: jest.fn().mockReturnValue(() => true)
+}))
 
 describe('ItemsController', () => {
   let controller: ItemsController
@@ -10,7 +20,6 @@ describe('ItemsController', () => {
 
   const mockItem = {
     _id: '65ff12345678901234567890',
-    name: 'Test Item',
     description: 'Test Description',
     price: 100,
     quantity: 10,

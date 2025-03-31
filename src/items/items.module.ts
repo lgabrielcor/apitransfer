@@ -3,7 +3,7 @@ import { ItemsService } from './items.service'
 import { ItemsController } from './items.controller'
 import { MongooseModule } from '@nestjs/mongoose'
 import { Item, ItemSchema } from './entities/item.entity'
-import { JwtConfig } from 'src/config/jwt.config'
+import { JwtConfig } from '../config/jwt.config'
 
 @Module({
   imports: [
@@ -13,4 +13,4 @@ import { JwtConfig } from 'src/config/jwt.config'
   controllers: [ItemsController],
   providers: [ItemsService],
 })
-export class ItemsModule {}
+export class ItemsModule { }

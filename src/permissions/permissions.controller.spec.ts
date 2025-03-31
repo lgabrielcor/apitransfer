@@ -46,7 +46,6 @@ describe('PermissionsController', () => {
   describe('create', () => {
     it('should create a new permission', async () => {
       const createPermissionDto: CreatePermissionDto = {
-        name: 'read:users',
         description: 'Can read users',
         resource: 'users',
         action: 'read',
@@ -76,7 +75,6 @@ describe('PermissionsController', () => {
     it('should update a permission', async () => {
       const id = '65ff12345678901234567890'
       const updatePermissionDto: UpdatePermissionDto = {
-        name: 'write:users',
         description: 'Can write users',
       }
 

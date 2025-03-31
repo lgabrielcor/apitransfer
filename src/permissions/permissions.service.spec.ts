@@ -56,7 +56,6 @@ describe('PermissionsService', () => {
   describe('create', () => {
     it('should create a new permission', async () => {
       const createPermissionDto: CreatePermissionDto = {
-        name: 'read:users',
         description: 'Can read users',
         resource: 'users',
         action: 'read',
@@ -69,7 +68,6 @@ describe('PermissionsService', () => {
 
     it('should throw an error if creation fails', async () => {
       const createPermissionDto: CreatePermissionDto = {
-        name: 'read:users',
         description: 'Can read users',
         resource: 'users',
         action: 'read',
@@ -123,7 +121,6 @@ describe('PermissionsService', () => {
     it('should update a permission', async () => {
       const id = '65ff12345678901234567890'
       const updatePermissionDto: UpdatePermissionDto = {
-        name: 'write:users',
         description: 'Can write users',
       }
 
@@ -139,7 +136,6 @@ describe('PermissionsService', () => {
     it('should throw an error if permission to update is not found', async () => {
       const id = '65ff12345678901234567890'
       const updatePermissionDto: UpdatePermissionDto = {
-        name: 'write:users',
       }
 
       jest.spyOn(model, 'findByIdAndUpdate').mockReturnValueOnce({
